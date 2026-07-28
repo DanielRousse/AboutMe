@@ -5,7 +5,6 @@
   const EMAILJS_SERVICE_ID = "service_fjn1uuf";
   const EMAILJS_TEMPLATE_ID = "template_9u0x0ne";
 
-  /* ── TRANSLATIONS ──────────────────────────────────────────────── */
   const translations = {
     es: {
       "nav.home": "Inicio",
@@ -141,7 +140,6 @@
 
   let currentLang = localStorage.getItem("portfolio-lang") || "es";
 
-  /* ── LANGUAGE ──────────────────────────────────────────────────── */
   function updateLanguage(lang) {
     currentLang = lang;
     localStorage.setItem("portfolio-lang", lang);
@@ -168,7 +166,6 @@
     }
   }
 
-  /* ── INPUT SANITIZATION ────────────────────────────────────────── */
   function sanitizeInput(str) {
     if (typeof str !== "string") return "";
     return str.replace(/[&<>"'/]/g, (match) => {
@@ -184,7 +181,6 @@
     });
   }
 
-  /* ── CUSTOM ALERT ──────────────────────────────────────────────── */
   let alertTimeout = null;
 
   function showCustomAlert(message, type) {
@@ -222,7 +218,6 @@
     }
   }
 
-  /* ── PARTICLE CANVAS ───────────────────────────────────────────── */
   function initParticles() {
     const canvas = document.getElementById("hero-canvas");
     if (!canvas) return;
@@ -282,11 +277,9 @@
         p.y += p.vy;
         p.life++;
 
-        // Bounce off edges
         if (p.x < 0 || p.x > W) p.vx *= -1;
         if (p.y < 0 || p.y > H) p.vy *= -1;
 
-        // Fade in/out over lifetime
         const lifeRatio = p.life / p.maxLife;
         const fadeAlpha = lifeRatio < 0.1
           ? lifeRatio * 10 * p.alpha
@@ -314,7 +307,6 @@
     });
   }
 
-  /* ── TYPED TEXT EFFECT ─────────────────────────────────────────── */
   function initTypedEffect() {
     const el = document.getElementById("typed-name");
     if (!el) return;
@@ -341,7 +333,7 @@
         charIndex++;
         el.textContent = word.substring(0, charIndex);
         if (charIndex === word.length) {
-          if (wordIndex === words.length - 1) return; // Stop on last word
+          if (wordIndex === words.length - 1) return;
           paused = true;
           setTimeout(() => { paused = false; deleting = true; tick(); }, 1800);
           return;
@@ -353,7 +345,6 @@
     setTimeout(tick, 900);
   }
 
-  /* ── STAT COUNTERS ─────────────────────────────────────────────── */
   function initCounters() {
     const counters = document.querySelectorAll(".stat-number");
     if (!counters.length) return;
@@ -371,7 +362,6 @@
         function update(now) {
           const elapsed = now - startTime;
           const progress = Math.min(elapsed / duration, 1);
-          // Ease out cubic
           const eased = 1 - Math.pow(1 - progress, 3);
           const value = Math.floor(eased * target);
           el.textContent = value + suffix;
@@ -387,13 +377,11 @@
     counters.forEach(c => observer.observe(c));
   }
 
-  /* ── GSAP ANIMATIONS ───────────────────────────────────────────── */
   function initGSAP() {
     if (typeof gsap === "undefined") return;
 
     gsap.registerPlugin(ScrollTrigger);
 
-    // ── Navbar entrance (no override of ongoing scroll)
     gsap.from(".navbar", {
       y: -70,
       opacity: 0,
@@ -402,7 +390,6 @@
       delay: 0.1
     });
 
-    // ── Hero split: slide in from sides simultaneously
     const heroTl = gsap.timeline({ delay: 0.2 });
 
     heroTl
@@ -413,7 +400,7 @@
       .fromTo(".right-col",
         { x: "100%", opacity: 0 },
         { x: "0%", opacity: 1, duration: 1.1, ease: "power3.out" },
-        "<"  // start at same time as previous
+        "<"
       )
       .fromTo(".left-col .split-overlay, .right-col .split-overlay",
         { opacity: 1 },
@@ -441,7 +428,6 @@
         "-=0.4"
       );
 
-    // ── "Why both" section
     gsap.from("#por-que-las-dos .col-lg-8 > *", {
       scrollTrigger: {
         trigger: "#por-que-las-dos",
@@ -455,7 +441,6 @@
       ease: "power2.out"
     });
 
-    // ── Stats row
     gsap.from(".stats-row .stat-item", {
       scrollTrigger: {
         trigger: ".stats-row",
@@ -469,7 +454,6 @@
       ease: "back.out(1.5)"
     });
 
-    // ── About image
     gsap.from(".about-img-block", {
       scrollTrigger: {
         trigger: "#sobre-mi",
@@ -483,7 +467,6 @@
       ease: "power3.out"
     });
 
-    // ── About text
     gsap.from(".about-text-block > *", {
       scrollTrigger: {
         trigger: "#sobre-mi",
@@ -497,7 +480,6 @@
       ease: "power3.out"
     });
 
-    // ── Education items
     gsap.from(".education-block li", {
       scrollTrigger: {
         trigger: ".education-block",
@@ -511,7 +493,6 @@
       ease: "power2.out"
     });
 
-    // ── Skills badges (pop in with stagger)
     gsap.from(".skills-block .badge", {
       scrollTrigger: {
         trigger: ".skills-block",
@@ -525,7 +506,6 @@
       ease: "back.out(2)"
     });
 
-    // ── Project cards
     gsap.from(".project-card-block", {
       scrollTrigger: {
         trigger: "#proyectos",
@@ -539,7 +519,6 @@
       ease: "power3.out"
     });
 
-    // ── Section titles
     gsap.utils.toArray(".section-title-anim").forEach(el => {
       gsap.from(el, {
         scrollTrigger: {
@@ -554,7 +533,6 @@
       });
     });
 
-    // ── Contact blocks
     gsap.from(".contact-info-block", {
       scrollTrigger: {
         trigger: "#contacto",
@@ -579,7 +557,6 @@
       ease: "power3.out"
     });
 
-    // ── Navbar scroll shrink
     ScrollTrigger.create({
       start: "top -80",
       onUpdate: (self) => {
@@ -591,7 +568,6 @@
     });
   }
 
-  /* ── CARD SPOTLIGHT ────────────────────────────────────────────── */
   function initCardSpotlight() {
     document.querySelectorAll(".card").forEach(card => {
       if (!card.querySelector(".card-spotlight")) {
@@ -607,7 +583,6 @@
     });
   }
 
-  /* ── PAGE SPOTLIGHT ────────────────────────────────────────────── */
   function initPageSpotlight() {
     if (!window.matchMedia("(pointer: fine)").matches) return;
     const el = document.createElement("div");
@@ -631,7 +606,6 @@
     animateSpotlight();
   }
 
-  /* ── ACTIVE NAV LINK ON SCROLL ─────────────────────────────────── */
   function initActiveNavHighlight() {
     const sections = document.querySelectorAll("main section[id]");
     const navLinks = document.querySelectorAll(".navbar-nav .nav-link[href^='#']");
@@ -650,7 +624,6 @@
     sections.forEach(s => observer.observe(s));
   }
 
-  /* ── SMOOTH NAVBAR COLLAPSE ON MOBILE ──────────────────────────── */
   function initNavCollapse() {
     document.querySelectorAll(".navbar-nav .nav-link").forEach(link => {
       link.addEventListener("click", () => {
@@ -663,7 +636,6 @@
     });
   }
 
-  /* ── FORM LOGIC ────────────────────────────────────────────────── */
   function initForm() {
     if (typeof emailjs !== "undefined" && EMAILJS_PUBLIC_KEY !== "YOUR_EMAILJS_PUBLIC_KEY") {
       emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
@@ -689,21 +661,18 @@
     form.addEventListener("submit", (event) => {
       event.preventDefault();
 
-      // Honeypot check
       if (document.getElementById("nicknameInput").value.trim() !== "") {
         showCustomAlert(translations[currentLang]["val.send_success"], "success");
         form.reset();
         return;
       }
 
-      // Bot timing check
       const elapsed = Date.now() - firstInteractionTime;
       if (!firstInteractionTime || elapsed < 4000) {
         showCustomAlert(translations[currentLang]["val.bot_err"], "error");
         return;
       }
 
-      // Cooldown
       const lastSubmit = localStorage.getItem("last-submit-time");
       if (lastSubmit && Date.now() - parseInt(lastSubmit, 10) < 180000) {
         showCustomAlert(translations[currentLang]["val.cooldown_err"], "error");
@@ -712,14 +681,12 @@
 
       let isValid = true;
 
-      // Name
       const nameVal = sanitizeInput(nameInput.value.trim());
       const nameOk = /^[a-zA-ZÀ-ÿ\s]{3,}$/.test(nameVal);
       nameInput.classList.toggle("is-invalid", !nameOk);
       nameInput.classList.toggle("is-valid", nameOk);
       if (!nameOk) isValid = false;
 
-      // Email
       const emailVal = sanitizeInput(emailInput.value.trim());
       const emailFeedback = emailInput.nextElementSibling;
       let emailErrKey = "";
@@ -750,7 +717,6 @@
         isValid = false;
       }
 
-      // Phone
       const phoneVal = sanitizeInput(phoneInput.value.trim());
       let digits = phoneVal.replace(/\D/g, "");
       if (digits.startsWith("52") && digits.length === 12) digits = digits.substring(2);
@@ -759,7 +725,6 @@
       phoneInput.classList.toggle("is-valid", phoneOk);
       if (!phoneOk) isValid = false;
 
-      // Message
       const msgVal = sanitizeInput(messageInput.value.trim());
       const msgOk = msgVal.length >= 30 && msgVal.length <= 500;
       messageInput.classList.toggle("is-invalid", !msgOk);
@@ -797,7 +762,262 @@
     });
   }
 
-  /* ── INIT ──────────────────────────────────────────────────────── */
+  let matrixRain = null;
+
+  function initMatrixRain() {
+    const canvas = document.getElementById("matrix-canvas");
+    if (!canvas) return { start() {}, stop() {} };
+
+    const ctx = canvas.getContext("2d");
+    let animId = null;
+    let columns, drops;
+
+    const codeChars = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEFabcdefpublicclassvoidifsaboreturnnewintstringwhileimportconstletvarfunctionasync{}[]();:<>=+*/";
+    const fontSize = 14;
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      columns = Math.floor(canvas.width / fontSize);
+      drops = new Array(columns).fill(0).map(() => Math.floor(Math.random() * -50));
+    }
+
+    function draw() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.06)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < drops.length; i++) {
+        const char = codeChars[Math.floor(Math.random() * codeChars.length)];
+        const brightness = Math.random();
+
+        if (brightness > 0.96) {
+          ctx.fillStyle = "#FFFFFF";
+          ctx.shadowColor = "#FFFFFF";
+          ctx.shadowBlur = 8;
+        } else if (brightness > 0.82) {
+          ctx.fillStyle = "#00FF41";
+          ctx.shadowColor = "#00FF41";
+          ctx.shadowBlur = 4;
+        } else {
+          ctx.fillStyle = "rgba(0, 255, 65, " + (0.25 + brightness * 0.5) + ")";
+          ctx.shadowBlur = 0;
+        }
+
+        ctx.font = fontSize + "px monospace";
+        ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+        ctx.shadowBlur = 0;
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+
+      animId = requestAnimationFrame(draw);
+    }
+
+    resize();
+
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(resize, 200);
+    });
+
+    return {
+      start() {
+        if (!animId) {
+          resize();
+          animId = requestAnimationFrame(draw);
+        }
+      },
+      stop() {
+        if (animId) {
+          cancelAnimationFrame(animId);
+          animId = null;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+    };
+  }
+
+  function createMechBackground() {
+    const container = document.getElementById("mech-bg");
+    if (!container) return;
+
+    function createGearSVG(teeth, innerR, outerR, color) {
+      const ns = "http://www.w3.org/2000/svg";
+      const svg = document.createElementNS(ns, "svg");
+      svg.setAttribute("viewBox", "0 0 100 100");
+      svg.setAttribute("width", "100%");
+      svg.setAttribute("height", "100%");
+
+      const points = [];
+      const step = Math.PI / teeth;
+      for (let i = 0; i < teeth * 2; i++) {
+        const angle = i * step - Math.PI / 2;
+        const r = i % 2 === 0 ? outerR : innerR;
+        points.push((50 + r * Math.cos(angle)).toFixed(2) + "," + (50 + r * Math.sin(angle)).toFixed(2));
+      }
+
+      const polygon = document.createElementNS(ns, "polygon");
+      polygon.setAttribute("points", points.join(" "));
+      polygon.setAttribute("fill", "none");
+      polygon.setAttribute("stroke", color);
+      polygon.setAttribute("stroke-width", "0.8");
+      polygon.setAttribute("stroke-linejoin", "round");
+
+      const innerCircle = document.createElementNS(ns, "circle");
+      innerCircle.setAttribute("cx", "50");
+      innerCircle.setAttribute("cy", "50");
+      innerCircle.setAttribute("r", String(innerR * 0.45));
+      innerCircle.setAttribute("fill", "none");
+      innerCircle.setAttribute("stroke", color);
+      innerCircle.setAttribute("stroke-width", "0.5");
+
+      const hubCircle = document.createElementNS(ns, "circle");
+      hubCircle.setAttribute("cx", "50");
+      hubCircle.setAttribute("cy", "50");
+      hubCircle.setAttribute("r", String(innerR * 0.2));
+      hubCircle.setAttribute("fill", color);
+      hubCircle.setAttribute("fill-opacity", "0.3");
+
+      svg.appendChild(polygon);
+      svg.appendChild(innerCircle);
+      svg.appendChild(hubCircle);
+      return svg;
+    }
+
+    const gears = [
+      { size: 280, x: "3%", y: "8%", teeth: 18, speed: 45, reverse: false, color: "rgba(255, 107, 53, 0.18)" },
+      { size: 200, x: "72%", y: "52%", teeth: 14, speed: 32, reverse: true, color: "rgba(245, 158, 11, 0.14)" },
+      { size: 130, x: "42%", y: "72%", teeth: 10, speed: 25, reverse: false, color: "rgba(239, 68, 68, 0.12)" },
+      { size: 320, x: "60%", y: "2%", teeth: 22, speed: 55, reverse: true, color: "rgba(255, 107, 53, 0.1)" },
+      { size: 100, x: "12%", y: "62%", teeth: 8, speed: 18, reverse: false, color: "rgba(245, 158, 11, 0.16)" },
+      { size: 170, x: "82%", y: "80%", teeth: 12, speed: 38, reverse: true, color: "rgba(255, 107, 53, 0.09)" },
+      { size: 90, x: "50%", y: "35%", teeth: 8, speed: 22, reverse: false, color: "rgba(239, 68, 68, 0.13)" },
+    ];
+
+    gears.forEach(g => {
+      const wrapper = document.createElement("div");
+      wrapper.className = "mech-gear" + (g.reverse ? " reverse" : "");
+      wrapper.style.width = g.size + "px";
+      wrapper.style.height = g.size + "px";
+      wrapper.style.left = g.x;
+      wrapper.style.top = g.y;
+      wrapper.style.animationDuration = g.speed + "s";
+
+      const svg = createGearSVG(g.teeth, 30, 45, g.color);
+      wrapper.appendChild(svg);
+      container.appendChild(wrapper);
+    });
+
+    const circuitLines = [
+      { left: "0", top: "25%", width: "40%", delay: 0 },
+      { left: "60%", top: "45%", width: "40%", delay: 1.5 },
+      { left: "20%", top: "70%", width: "55%", delay: 3 },
+      { left: "10%", top: "90%", width: "30%", delay: 2 },
+    ];
+
+    circuitLines.forEach(cl => {
+      const line = document.createElement("div");
+      line.className = "mech-circuit-line";
+      line.style.left = cl.left;
+      line.style.top = cl.top;
+      line.style.width = cl.width;
+      line.style.animationDelay = cl.delay + "s";
+      container.appendChild(line);
+    });
+  }
+
+  function initImmersiveMode() {
+    const leftCol = document.querySelector(".left-col");
+    const rightCol = document.querySelector(".right-col");
+    if (!leftCol || !rightCol) return;
+
+    let currentTheme = null;
+    let leaveTimeout = null;
+    const isMobile = !window.matchMedia("(hover: hover)").matches;
+
+    function activateTheme(theme) {
+      if (leaveTimeout) {
+        clearTimeout(leaveTimeout);
+        leaveTimeout = null;
+      }
+      if (currentTheme === theme) return;
+
+      document.body.classList.remove("theme-mech", "theme-dev");
+      document.body.classList.add(theme);
+      currentTheme = theme;
+
+      if (theme === "theme-dev" && matrixRain) {
+        matrixRain.start();
+      } else if (matrixRain) {
+        matrixRain.stop();
+      }
+
+      if (typeof gsap !== "undefined") {
+        gsap.fromTo("main", { opacity: 0.92 }, { opacity: 1, duration: 0.4, ease: "power2.out" });
+      }
+    }
+
+    function deactivateTheme() {
+      if (currentTheme === "theme-dev" && matrixRain) {
+        matrixRain.stop();
+      }
+      document.body.classList.remove("theme-mech", "theme-dev");
+      currentTheme = null;
+
+      if (typeof gsap !== "undefined") {
+        gsap.fromTo("main", { opacity: 0.95 }, { opacity: 1, duration: 0.3, ease: "power2.out" });
+      }
+    }
+
+    if (isMobile) {
+      leftCol.addEventListener("click", (e) => {
+        if (e.target.closest("a")) return;
+        if (currentTheme === "theme-mech") {
+          deactivateTheme();
+          leftCol.classList.remove("mobile-active");
+        } else {
+          rightCol.classList.remove("mobile-active");
+          leftCol.classList.add("mobile-active");
+          activateTheme("theme-mech");
+        }
+      });
+
+      rightCol.addEventListener("click", (e) => {
+        if (e.target.closest("a")) return;
+        if (currentTheme === "theme-dev") {
+          deactivateTheme();
+          rightCol.classList.remove("mobile-active");
+        } else {
+          leftCol.classList.remove("mobile-active");
+          rightCol.classList.add("mobile-active");
+          activateTheme("theme-dev");
+        }
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest("#intro-split") && currentTheme) {
+          leftCol.classList.remove("mobile-active");
+          rightCol.classList.remove("mobile-active");
+          deactivateTheme();
+        }
+      });
+    } else {
+      leftCol.addEventListener("mouseenter", () => activateTheme("theme-mech"));
+      rightCol.addEventListener("mouseenter", () => activateTheme("theme-dev"));
+
+      leftCol.addEventListener("mouseleave", () => {
+        leaveTimeout = setTimeout(deactivateTheme, 1500);
+      });
+      rightCol.addEventListener("mouseleave", () => {
+        leaveTimeout = setTimeout(deactivateTheme, 1500);
+      });
+    }
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     updateLanguage(currentLang);
 
@@ -814,6 +1034,9 @@
     initActiveNavHighlight();
     initNavCollapse();
     initForm();
+    matrixRain = initMatrixRain();
+    createMechBackground();
+    initImmersiveMode();
   });
 
 })();
