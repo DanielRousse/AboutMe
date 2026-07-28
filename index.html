@@ -5,16 +5,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jonathan Daniel Reyes Gordillo | Portafolio</title>
+  <meta name="description"
+    content="Portafolio profesional de Jonathan Daniel Reyes Gordillo — Desarrollador Java Full Stack Jr. e Ingeniero en Mecatrónica. Especializado en arquitectura web, APIs REST y sistemas integrados hardware-software.">
+  <meta property="og:title" content="Jonathan Daniel Reyes Gordillo | Portafolio">
+  <meta property="og:description" content="Desarrollador Full Stack e Ingeniero Mecatrónico — Ciudad de México.">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
 
+  <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <div class="container">
       <a class="navbar-brand fw-bold" href="#inicio" id="nav-logo">JD</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
@@ -32,7 +38,7 @@
             <a class="nav-link" href="#contacto" data-i18n="nav.contact">Contacto</a>
           </li>
           <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
-            <div class="btn-group" role="group">
+            <div class="btn-group" role="group" aria-label="Language selector">
               <button type="button" id="lang-btn-es" class="btn btn-outline-secondary btn-sm active">ES</button>
               <button type="button" id="lang-btn-en" class="btn btn-outline-secondary btn-sm">EN</button>
             </div>
@@ -44,10 +50,16 @@
 
   <main>
 
+    <!-- HERO SECTION -->
     <section id="inicio">
-      <div class="container-fluid p-0">
+      <div class="container-fluid p-0 position-relative">
+
+        <!-- Particle canvas overlay -->
+        <canvas id="hero-canvas" aria-hidden="true"></canvas>
+
         <div class="row g-0 flex-column flex-md-row" id="intro-split">
 
+          <!-- Left: Mechatronics -->
           <div class="col-md-6 split-col left-col d-flex align-items-center justify-content-center text-center">
             <div class="split-bg" style="background-image: url('assets/mecatronica.png');"></div>
             <div class="split-overlay"></div>
@@ -59,6 +71,7 @@
             </div>
           </div>
 
+          <!-- Right: Full Stack -->
           <div class="col-md-6 split-col right-col d-flex align-items-center justify-content-center text-center">
             <div class="split-bg" style="background-image: url('assets/fullstack.png');"></div>
             <div class="split-overlay"></div>
@@ -71,14 +84,24 @@
           </div>
 
         </div>
+
+        <!-- Typed name bar -->
+        <div class="hero-name-bar py-3 text-center">
+          <p class="mb-0 text-light-slate small" style="letter-spacing:2px; text-transform: uppercase;">
+            Hola, soy &nbsp;<span id="typed-name" class="text-neon-cyan fw-bold"></span><span
+              class="typed-cursor">|</span>
+          </p>
+        </div>
       </div>
 
+      <!-- Why both -->
       <div class="py-5" id="por-que-las-dos">
         <div class="container py-4">
           <div class="row justify-content-center text-center">
             <div class="col-lg-8">
-              <h2 class="display-6 fw-bold mb-4 text-neon-yellow" data-i18n="intro.why_title">¿Por qué Ingeniería
-                Mecatrónica & Desarrollo Full Stack?</h2>
+              <h2 class="display-6 fw-bold mb-4 text-neon-yellow section-title-anim" data-i18n="intro.why_title">¿Por
+                qué Ingeniería
+                Mecatrónica &amp; Desarrollo Full Stack?</h2>
               <p class="lead text-light-slate" data-i18n="intro.why_desc">La combinación de ambas disciplinas me permite
                 comprender y diseñar sistemas tecnológicos de extremo a extremo: desde la interacción directa con
                 sensores y microcontroladores (hardware) hasta la arquitectura en la nube, bases de datos y desarrollo
@@ -86,22 +109,53 @@
                 mundo físico.</p>
             </div>
           </div>
+
+          <!-- Stats row -->
+          <div class="row justify-content-center text-center mt-5 stats-row g-4">
+            <div class="col-6 col-md-3 stat-item">
+              <div class="stat-card">
+                <div class="stat-number text-neon-pink fw-bold" data-target="5" data-suffix="+">0+</div>
+                <div class="stat-label text-light-slate small">Años de formación</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 stat-item">
+              <div class="stat-card">
+                <div class="stat-number text-neon-cyan fw-bold" data-target="3" data-suffix="">0</div>
+                <div class="stat-label text-light-slate small">Proyectos destacados</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 stat-item">
+              <div class="stat-card">
+                <div class="stat-number text-neon-yellow fw-bold" data-target="10" data-suffix="+">0+</div>
+                <div class="stat-label text-light-slate small">Tecnologías dominadas</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 stat-item">
+              <div class="stat-card">
+                <div class="stat-number text-neon-pink fw-bold" data-target="1" data-suffix="">0</div>
+                <div class="stat-label text-light-slate small">Artículo científico</div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
 
+    <!-- ABOUT SECTION -->
     <section id="sobre-mi" class="py-5">
       <div class="container py-5">
         <div class="row align-items-center g-5">
           <div class="col-lg-4 text-center about-img-block">
             <div class="about-img-container d-inline-block position-relative">
-              <img src="assets/FotoPerfil.png" alt="Jonathan Daniel" class="img-fluid rounded shadow-lg"
+              <img src="assets/FotoPerfil.png" alt="Jonathan Daniel Reyes Gordillo" class="img-fluid rounded shadow-lg"
                 style="max-height: 320px; object-fit: cover;">
               <div class="about-img-glow"></div>
             </div>
           </div>
           <div class="col-lg-8 about-text-block">
-            <h2 class="display-5 fw-bold mb-4 text-white text-neon-cyan" data-i18n="about.title">Sobre Mí</h2>
+            <h2 class="display-5 fw-bold mb-4 text-white text-neon-cyan section-title-anim" data-i18n="about.title">
+              Sobre Mí</h2>
             <p class="lead mb-4 text-light-slate" data-i18n="about.desc">Soy un desarrollador Java Full Stack Jr. e
               Ingeniero en Mecatrónica que disfruta diseñar la arquitectura detrás de aplicaciones web, resolver
               problemas lógicos complejos y crear soluciones integrales que conecten el software con el mundo físico. Mi
@@ -129,7 +183,7 @@
                   </li>
                   <li>
                     <span class="d-block fw-bold text-white">Inglés</span>
-                    <span class="small d-block" data-i18n="about.edu_item4">Nivel B1</span>
+                    <span class="small d-block" data-i18n="about.edu_item4">Nivel B2</span>
                   </li>
                 </ul>
               </div>
@@ -160,9 +214,11 @@
       </div>
     </section>
 
+    <!-- PROJECTS SECTION -->
     <section id="proyectos" class="py-5">
       <div class="container py-5">
-        <h2 class="display-5 fw-bold text-center mb-5 text-neon-yellow" data-i18n="projects.title">Proyectos y
+        <h2 class="display-5 fw-bold text-center mb-5 text-neon-yellow section-title-anim" data-i18n="projects.title">
+          Proyectos y
           Experiencia</h2>
 
         <div class="row g-4 justify-content-center">
@@ -171,7 +227,7 @@
             <div class="card h-100">
               <div class="card-body p-4 d-flex flex-column">
                 <div class="mb-3">
-                  <span class="badge bg-neon-pink">Hardware & Software</span>
+                  <span class="badge bg-neon-pink">Hardware &amp; Software</span>
                 </div>
                 <h3 class="h5 card-title fw-bold text-white mb-3" data-i18n="projects.p1_title">Desarrollador de
                   Software | Instituto Tecnológico de Tláhuac</h3>
@@ -211,7 +267,7 @@
                   <li data-i18n="projects.p2_bullet4">Integré endpoints con frontend en Vite garantizando alta velocidad
                     de datos.</li>
                 </ul>
-                <a href="https://danielrousse.github.io/BCKEND_FYNDR/" target="_blank"
+                <a href="https://danielrousse.github.io/BCKEND_FYNDR/" target="_blank" rel="noopener"
                   class="btn btn-primary btn-sm w-100" data-i18n="projects.visit">Visitar
                   Sitio</a>
               </div>
@@ -235,10 +291,10 @@
                     adaptativo al tamaño de pantalla.</li>
                   <li class="mb-2" data-i18n="projects.p3_bullet3">Implementé validación de formularios con Regex y
                     alertas en tiempo real.</li>
-                  <li data-i18n="projects.p3_bullet4">Coordinó la integración de ramas con Git y resolvió conflictos de
+                  <li data-i18n="projects.p3_bullet4">Coordiné la integración de ramas con Git y resolví conflictos de
                     fusión.</li>
                 </ul>
-                <a href="https://alanhercas.github.io/kungfushop-Hackathon/" target="_blank"
+                <a href="https://alanhercas.github.io/kungfushop-Hackathon/" target="_blank" rel="noopener"
                   class="btn btn-primary btn-sm w-100" data-i18n="projects.visit">Visitar Sitio</a>
               </div>
             </div>
@@ -248,9 +304,11 @@
       </div>
     </section>
 
+    <!-- CONTACT SECTION -->
     <section id="contacto" class="py-5">
       <div class="container py-5">
-        <h2 class="display-5 fw-bold text-center mb-5 text-neon-pink" data-i18n="contact.title">Contacto</h2>
+        <h2 class="display-5 fw-bold text-center mb-5 text-neon-pink section-title-anim" data-i18n="contact.title">
+          Contacto</h2>
 
         <div class="row g-5 justify-content-center">
           <div class="col-lg-5 contact-info-block">
@@ -276,10 +334,11 @@
                     para reubicación)</p>
                 </div>
 
-                <div class="pt-3">
-                  <a href="https://www.linkedin.com/in/jonathandrg/" target="_blank"
-                    class="btn btn-outline-secondary me-2">LinkedIn</a>
-                  <a href="https://github.com/DanielRousse" target="_blank" class="btn btn-outline-secondary">GitHub</a>
+                <div class="pt-3 d-flex gap-2 flex-wrap">
+                  <a href="https://www.linkedin.com/in/jonathandrg/" target="_blank" rel="noopener"
+                    class="btn btn-outline-secondary" id="btn-linkedin">LinkedIn</a>
+                  <a href="https://github.com/DanielRousse" target="_blank" rel="noopener"
+                    class="btn btn-outline-secondary" id="btn-github">GitHub</a>
                 </div>
               </div>
             </div>
@@ -316,7 +375,8 @@
                 <textarea class="form-control" id="messageInput" name="message" rows="4" required></textarea>
                 <div class="invalid-feedback small" data-i18n="val.msg_err">Mensaje corto.</div>
               </div>
-              <button type="submit" class="btn btn-primary w-100 py-2" data-i18n="contact.form_send">Enviar
+              <button type="submit" class="btn btn-primary w-100 py-2" id="btn-send-msg"
+                data-i18n="contact.form_send">Enviar
                 Mensaje</button>
             </form>
           </div>
@@ -333,7 +393,8 @@
     </div>
   </footer>
 
-  <div id="custom-alert" class="custom-alert" style="display: none;">
+  <!-- Custom Alert -->
+  <div id="custom-alert" class="custom-alert" style="display: none;" role="alert" aria-live="polite">
     <div class="custom-alert-content">
       <span id="custom-alert-message"></span>
       <button id="custom-alert-close" class="btn-close btn-close-white ms-3" aria-label="Close"></button>
