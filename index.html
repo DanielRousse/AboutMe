@@ -17,10 +17,11 @@
 
   <canvas id="matrix-canvas" aria-hidden="true"></canvas>
   <div id="mech-bg" aria-hidden="true"></div>
+  <div class="custom-cursor" id="custom-cursor"></div>
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="#inicio" id="nav-logo">JD</a>
+      <a class="navbar-brand fw-bold" href="#inicio" id="nav-logo">JD<span class="availability-dot" title="Disponible para contratación"></span></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -34,16 +35,28 @@
             <a class="nav-link" href="#sobre-mi" data-i18n="nav.about">Sobre Mí</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="#timeline" data-i18n="nav.timeline">Trayectoria</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="#proyectos" data-i18n="nav.projects">Proyectos</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#contacto" data-i18n="nav.contact">Contacto</a>
           </li>
-          <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+          <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+            <a href="assets/CV_JonathanDanielReyesGordillo.pdf" download class="btn-cv-download" id="btn-cv-download" data-i18n="nav.cv">
+              ⬇ CV
+              <span class="cv-progress"></span>
+            </a>
+          </li>
+          <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
             <div class="btn-group" role="group" aria-label="Language selector">
               <button type="button" id="lang-btn-es" class="btn btn-outline-secondary btn-sm active">ES</button>
               <button type="button" id="lang-btn-en" class="btn btn-outline-secondary btn-sm">EN</button>
             </div>
+          </li>
+          <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+            <button type="button" id="btn-theme-toggle" class="btn-theme-toggle" title="Toggle light/dark mode" aria-label="Toggle theme">🌙</button>
           </li>
         </ul>
       </div>
@@ -52,15 +65,13 @@
 
   <main>
 
-
     <section id="inicio">
       <div class="container-fluid p-0 position-relative">
 
-
         <canvas id="hero-canvas" aria-hidden="true"></canvas>
+        <div id="three-canvas-container" aria-hidden="true"></div>
 
         <div class="row g-0 flex-column flex-md-row" id="intro-split">
-
 
           <div class="col-md-6 split-col left-col d-flex align-items-center justify-content-center text-center">
             <div class="split-bg" style="background-image: url('assets/mecatronica.png');"></div>
@@ -72,7 +83,6 @@
                 control técnico y hardware de precisión.</p>
             </div>
           </div>
-
 
           <div class="col-md-6 split-col right-col d-flex align-items-center justify-content-center text-center">
             <div class="split-bg" style="background-image: url('assets/fullstack.png');"></div>
@@ -87,15 +97,13 @@
 
         </div>
 
-
         <div class="hero-name-bar py-3 text-center">
           <p class="mb-0 text-light-slate small" style="letter-spacing:2px; text-transform: uppercase;">
-            Hola, soy &nbsp;<span id="typed-name" class="text-neon-cyan fw-bold"></span><span
+            <span data-i18n="intro.hello">Hola, soy</span> &nbsp;<span id="typed-name" class="text-neon-cyan fw-bold"></span><span
               class="typed-cursor">|</span>
           </p>
         </div>
       </div>
-
 
       <div class="py-5" id="por-que-las-dos">
         <div class="container py-4">
@@ -112,30 +120,29 @@
             </div>
           </div>
 
-
           <div class="row justify-content-center text-center mt-5 stats-row g-4">
             <div class="col-6 col-md-3 stat-item">
               <div class="stat-card">
                 <div class="stat-number text-neon-pink fw-bold" data-target="5" data-suffix="+">0+</div>
-                <div class="stat-label text-light-slate small">Años de formación</div>
+                <div class="stat-label text-light-slate small" data-i18n="stats.years">Años de formación</div>
               </div>
             </div>
             <div class="col-6 col-md-3 stat-item">
               <div class="stat-card">
                 <div class="stat-number text-neon-cyan fw-bold" data-target="3" data-suffix="">0</div>
-                <div class="stat-label text-light-slate small">Proyectos destacados</div>
+                <div class="stat-label text-light-slate small" data-i18n="stats.projects">Proyectos destacados</div>
               </div>
             </div>
             <div class="col-6 col-md-3 stat-item">
               <div class="stat-card">
                 <div class="stat-number text-neon-yellow fw-bold" data-target="10" data-suffix="+">0+</div>
-                <div class="stat-label text-light-slate small">Tecnologías dominadas</div>
+                <div class="stat-label text-light-slate small" data-i18n="stats.techs">Tecnologías dominadas</div>
               </div>
             </div>
             <div class="col-6 col-md-3 stat-item">
               <div class="stat-card">
                 <div class="stat-number text-neon-pink fw-bold" data-target="1" data-suffix="">0</div>
-                <div class="stat-label text-light-slate small">Artículo científico</div>
+                <div class="stat-label text-light-slate small" data-i18n="stats.papers">Artículo científico</div>
               </div>
             </div>
           </div>
@@ -143,7 +150,6 @@
         </div>
       </div>
     </section>
-
 
     <section id="sobre-mi" class="py-5">
       <div class="container py-5">
@@ -216,6 +222,82 @@
       </div>
     </section>
 
+    <section id="timeline" class="py-5">
+      <div class="container py-5">
+        <h2 class="display-5 fw-bold text-center mb-5 text-neon-cyan section-title-anim" data-i18n="timeline.title">Trayectoria</h2>
+        <div class="timeline-container">
+          <div class="timeline-line"></div>
+
+          <div class="timeline-item timeline-anim">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <span class="timeline-year">2021</span>
+              <h4 class="h6 fw-bold text-white mt-2" data-i18n="timeline.t1_title">Ingreso a Ingeniería Mecatrónica</h4>
+              <p class="small text-light-slate mb-0" data-i18n="timeline.t1_desc">Inicio de la carrera en el Instituto Tecnológico de Tláhuac, fusionando mecánica, electrónica y programación.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item timeline-anim">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <span class="timeline-year">2023</span>
+              <h4 class="h6 fw-bold text-white mt-2" data-i18n="timeline.t2_title">Proyecto de Software Médico</h4>
+              <p class="small text-light-slate mb-0" data-i18n="timeline.t2_desc">Desarrollo de un sistema de procesamiento de imágenes médicas con sensor biométrico integrado en MATLAB.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item timeline-anim">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <span class="timeline-year">2024</span>
+              <h4 class="h6 fw-bold text-white mt-2" data-i18n="timeline.t3_title">Congreso Internacional CITCA</h4>
+              <p class="small text-light-slate mb-0" data-i18n="timeline.t3_desc">Co-autoría y presentación de artículo científico sobre sistemas biométricos en congreso internacional.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item timeline-anim">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <span class="timeline-year">2026</span>
+              <h4 class="h6 fw-bold text-white mt-2" data-i18n="timeline.t4_title">Bootcamp Java Full Stack</h4>
+              <p class="small text-light-slate mb-0" data-i18n="timeline.t4_desc">Formación intensiva con Generation México: Java, Spring Boot, APIs REST, bases de datos y metodologías ágiles.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item timeline-anim">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <span class="timeline-year">2026</span>
+              <h4 class="h6 fw-bold text-white mt-2" data-i18n="timeline.t5_title">E-commerce Backend — Fyndr</h4>
+              <p class="small text-light-slate mb-0" data-i18n="timeline.t5_desc">Diseño e implementación de arquitectura backend con Spring Boot para plataforma de contratación de servicios.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item timeline-anim">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <span class="timeline-year" data-i18n="timeline.t6_year">PRESENTE</span>
+              <h4 class="h6 fw-bold text-white mt-2" data-i18n="timeline.t6_title">Buscando Nuevos Retos</h4>
+              <p class="small text-light-slate mb-0" data-i18n="timeline.t6_desc">Disponible para oportunidades profesionales como Desarrollador Full Stack Jr. en Ciudad de México o remoto.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="tech-stack" class="py-5">
+      <div class="container py-5">
+        <h2 class="display-5 fw-bold text-center mb-5 text-neon-pink section-title-anim" data-i18n="techstack.title">Stack Tecnológico</h2>
+        <div class="row align-items-center g-5 justify-content-center">
+          <div class="col-lg-5 text-center">
+            <canvas id="radar-canvas" width="320" height="320"></canvas>
+          </div>
+          <div class="col-lg-5" id="tech-legend">
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section id="proyectos" class="py-5">
       <div class="container py-5">
@@ -235,7 +317,7 @@
                   Software | Instituto Tecnológico de Tláhuac</h3>
                 <p class="card-text text-light-slate small mb-4" data-i18n="projects.p1_desc">Desarrollo de software
                   médico y biométrico integrado con hardware.</p>
-                <ul class="small ps-3 text-light-slate mb-0 mt-auto">
+                <ul class="small ps-3 text-light-slate mb-3 mt-auto">
                   <li class="mb-2" data-i18n="projects.p1_bullet1">Aseguré reversibilidad total y fidelidad diagnóstica
                     en imágenes médicas.</li>
                   <li class="mb-2" data-i18n="projects.p1_bullet2">Optimicé la seguridad reduciendo errores de
@@ -245,6 +327,19 @@
                   <li data-i18n="projects.p1_bullet4">Co-redacté un artículo científico y expuse resultados en el
                     congreso internacional CITCA.</li>
                 </ul>
+                <button class="project-details-toggle" data-target="details-p1" data-i18n-label="projects.details">
+                  <span data-i18n="projects.details">Ver detalles</span> <span class="toggle-arrow">▼</span>
+                </button>
+                <div class="project-details-content" id="details-p1">
+                  <div class="project-details-inner">
+                    <p class="small text-light-slate" data-i18n="projects.p1_detail">Este proyecto involucró el procesamiento de imágenes médicas con técnicas de compresión sin pérdida, asegurando que las imágenes pudieran reconstruirse fielmente para diagnóstico. Se implementó un sistema biométrico con sensor de huella dactilar para control de acceso al sistema, demostrando la integración exitosa entre hardware y software médico.</p>
+                    <div class="d-flex flex-wrap gap-2 mt-2">
+                      <span class="badge bg-neon-cyan">MATLAB</span>
+                      <span class="badge bg-neon-pink">Hardware</span>
+                      <span class="badge bg-neon-cyan">Biometría</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -269,8 +364,22 @@
                   <li data-i18n="projects.p2_bullet4">Integré endpoints con frontend en Vite garantizando alta velocidad
                     de datos.</li>
                 </ul>
+                <button class="project-details-toggle" data-target="details-p2">
+                  <span data-i18n="projects.details">Ver detalles</span> <span class="toggle-arrow">▼</span>
+                </button>
+                <div class="project-details-content" id="details-p2">
+                  <div class="project-details-inner">
+                    <p class="small text-light-slate" data-i18n="projects.p2_detail">Arquitectura MVC con Spring Boot, implementando patrones de diseño como Repository y Service Layer. Se diseñaron endpoints RESTful con documentación Swagger, autenticación JWT, y manejo de excepciones centralizado. La base de datos relacional fue diseñada con MySQL, optimizando queries para alto rendimiento.</p>
+                    <div class="d-flex flex-wrap gap-2 mt-2">
+                      <span class="badge bg-neon-pink">Java</span>
+                      <span class="badge bg-neon-cyan">Spring Boot</span>
+                      <span class="badge bg-neon-pink">MySQL</span>
+                      <span class="badge bg-neon-cyan">REST API</span>
+                    </div>
+                  </div>
+                </div>
                 <a href="https://danielrousse.github.io/BCKEND_FYNDR/" target="_blank" rel="noopener"
-                  class="btn btn-primary btn-sm w-100" data-i18n="projects.visit">Visitar
+                  class="btn btn-primary btn-sm w-100 mt-2" data-i18n="projects.visit">Visitar
                   Sitio</a>
               </div>
             </div>
@@ -296,8 +405,22 @@
                   <li data-i18n="projects.p3_bullet4">Coordiné la integración de ramas con Git y resolví conflictos de
                     fusión.</li>
                 </ul>
+                <button class="project-details-toggle" data-target="details-p3">
+                  <span data-i18n="projects.details">Ver detalles</span> <span class="toggle-arrow">▼</span>
+                </button>
+                <div class="project-details-content" id="details-p3">
+                  <div class="project-details-inner">
+                    <p class="small text-light-slate" data-i18n="projects.p3_detail">Tienda en línea desarrollada en un hackaton de 48 horas. Se implementó un carrusel de productos con JavaScript puro, adaptativo a diferentes breakpoints. La validación de formularios incluye patrones regex para email, teléfono y tarjeta de crédito. Gestión de versiones con Git, resolviendo conflictos en equipo multidisciplinario.</p>
+                    <div class="d-flex flex-wrap gap-2 mt-2">
+                      <span class="badge bg-neon-cyan">HTML5</span>
+                      <span class="badge bg-neon-pink">CSS3</span>
+                      <span class="badge bg-neon-cyan">JavaScript</span>
+                      <span class="badge bg-neon-pink">Git</span>
+                    </div>
+                  </div>
+                </div>
                 <a href="https://alanhercas.github.io/kungfushop-Hackathon/" target="_blank" rel="noopener"
-                  class="btn btn-primary btn-sm w-100" data-i18n="projects.visit">Visitar Sitio</a>
+                  class="btn btn-primary btn-sm w-100 mt-2" data-i18n="projects.visit">Visitar Sitio</a>
               </div>
             </div>
           </div>
@@ -306,6 +429,57 @@
       </div>
     </section>
 
+    <section id="github-activity" class="py-5">
+      <div class="container py-5">
+        <h2 class="display-5 fw-bold text-center mb-5 text-neon-cyan section-title-anim" data-i18n="github.title">Actividad en GitHub</h2>
+        <div class="row g-4 justify-content-center" id="github-repos">
+          <div class="col-12 text-center text-light-slate">
+            <p data-i18n="github.loading">Cargando repositorios...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonios" class="py-5">
+      <div class="container py-5">
+        <h2 class="display-5 fw-bold text-center mb-5 text-neon-yellow section-title-anim" data-i18n="testimonials.title">Testimonios</h2>
+        <div class="testimonial-track" id="testimonial-track">
+
+          <div class="testimonial-card">
+            <p class="testimonial-quote text-light-slate mb-4" data-i18n="testimonials.t1_quote">«Jonathan demuestra una capacidad excepcional para integrar conceptos de hardware y software. Su artículo científico sobre biometría fue destacado en el congreso CITCA.»</p>
+            <div>
+              <p class="testimonial-author text-neon-cyan mb-0" data-i18n="testimonials.t1_name">Dr. Profesor ITT</p>
+              <p class="small text-light-slate mb-0" data-i18n="testimonials.t1_role">Asesor de Proyecto — Instituto Tecnológico de Tláhuac</p>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <p class="testimonial-quote text-light-slate mb-4" data-i18n="testimonials.t2_quote">«En el equipo de Fyndr, Jonathan se destacó por su proactividad y habilidad para diseñar arquitecturas backend sólidas. Siempre propuso soluciones creativas en las dailies.»</p>
+            <div>
+              <p class="testimonial-author text-neon-pink mb-0" data-i18n="testimonials.t2_name">Compañero de Equipo</p>
+              <p class="small text-light-slate mb-0" data-i18n="testimonials.t2_role">Backend Developer — Proyecto Fyndr</p>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <p class="testimonial-quote text-light-slate mb-4" data-i18n="testimonials.t3_quote">«Su capacidad para resolver problemas bajo presión fue clave durante el hackaton. Coordinó la integración de ramas con Git de forma eficiente y entregamos a tiempo.»</p>
+            <div>
+              <p class="testimonial-author text-neon-yellow mb-0" data-i18n="testimonials.t3_name">Compañero de Hackaton</p>
+              <p class="small text-light-slate mb-0" data-i18n="testimonials.t3_role">Full Stack Developer — Kungfu Shop</p>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <p class="testimonial-quote text-light-slate mb-4" data-i18n="testimonials.t4_quote">«Jonathan combina una mentalidad analítica de ingeniero con la creatividad de un desarrollador. Su perfil multidisciplinario es exactamente lo que buscan las empresas modernas.»</p>
+            <div>
+              <p class="testimonial-author text-neon-cyan mb-0" data-i18n="testimonials.t4_name">Instructor Generation</p>
+              <p class="small text-light-slate mb-0" data-i18n="testimonials.t4_role">Bootcamp Java Full Stack — Generation México</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
 
     <section id="contacto" class="py-5">
       <div class="container py-5">
@@ -395,7 +569,6 @@
     </div>
   </footer>
 
-
   <div id="custom-alert" class="custom-alert" style="display: none;" role="alert" aria-live="polite">
     <div class="custom-alert-content">
       <span id="custom-alert-message"></span>
@@ -403,10 +576,33 @@
     </div>
   </div>
 
+  <button class="terminal-btn" id="terminal-btn" aria-label="Open terminal" title="Terminal interactiva">&gt;_</button>
+  <div class="terminal-modal" id="terminal-modal">
+    <div class="terminal-header">
+      <div class="terminal-dots">
+        <span style="background:#ff5f56;"></span>
+        <span style="background:#ffbd2e;"></span>
+        <span style="background:#27c93f;"></span>
+      </div>
+      <span style="color:rgba(0,240,255,0.6); font-size:0.7rem; font-family:'Orbitron',sans-serif; letter-spacing:2px;">TERMINAL</span>
+      <button id="terminal-close" style="background:none; border:none; color:#ff5f56; font-size:1.2rem; cursor:pointer; padding:0; line-height:1;">✕</button>
+    </div>
+    <div class="terminal-output" id="terminal-output"></div>
+    <div class="terminal-input-line">
+      <span class="terminal-prompt">visitor@jd:~$</span>
+      <input type="text" class="terminal-input" id="terminal-input" autocomplete="off" spellcheck="false">
+    </div>
+  </div>
+
+  <div class="konami-overlay" id="konami-overlay">
+    <div class="konami-text" id="konami-text"></div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
   <script src="js/app.js"></script>
 </body>
 
