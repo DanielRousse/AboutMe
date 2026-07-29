@@ -431,27 +431,23 @@
       .fromTo(".left-col .split-content h1, .right-col .split-content h1", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, stagger: 0.1, ease: "power2.out" }, "-=0.2")
       .fromTo(".left-col .split-content p, .right-col .split-content p", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power2.out" }, "-=0.4");
 
-    gsap.from("#por-que-las-dos .col-lg-8 > *", { scrollTrigger: { trigger: "#por-que-las-dos", start: "top 88%", toggleActions: "play none none none" }, y: 60, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power2.out" });
-    gsap.from(".stats-row .stat-item", { scrollTrigger: { trigger: ".stats-row", start: "top 88%", toggleActions: "play none none none" }, y: 40, opacity: 0, duration: 0.7, stagger: 0.15, ease: "back.out(1.5)" });
-    gsap.from(".about-img-block", { scrollTrigger: { trigger: "#sobre-mi", start: "top 85%", toggleActions: "play none none none" }, x: -80, rotate: -6, opacity: 0, duration: 1.0, ease: "power3.out" });
-    gsap.from(".about-text-block > *", { scrollTrigger: { trigger: "#sobre-mi", start: "top 85%", toggleActions: "play none none none" }, x: 80, opacity: 0, duration: 0.8, stagger: 0.12, ease: "power3.out" });
-    gsap.from(".education-block li", { scrollTrigger: { trigger: ".education-block", start: "top 88%", toggleActions: "play none none none" }, x: -30, opacity: 0, duration: 0.6, stagger: 0.12, ease: "power2.out" });
+    gsap.fromTo("#por-que-las-dos .col-lg-8", { y: 40, opacity: 0 }, { scrollTrigger: { trigger: "#por-que-las-dos", start: "top 92%", toggleActions: "play none none none" }, y: 0, opacity: 1, duration: 0.8, ease: "power2.out", clearProps: "transform,opacity" });
+    gsap.fromTo(".stats-row .stat-item", { y: 40, opacity: 0 }, { scrollTrigger: { trigger: ".stats-row", start: "top 92%", toggleActions: "play none none none" }, y: 0, opacity: 1, duration: 0.7, stagger: 0.12, ease: "back.out(1.5)", clearProps: "transform,opacity" });
+    gsap.fromTo(".about-img-block", { x: -60, opacity: 0 }, { scrollTrigger: { trigger: "#sobre-mi", start: "top 90%", toggleActions: "play none none none" }, x: 0, opacity: 1, duration: 0.9, ease: "power3.out", clearProps: "transform,opacity" });
+    gsap.fromTo(".about-text-block", { x: 60, opacity: 0 }, { scrollTrigger: { trigger: "#sobre-mi", start: "top 90%", toggleActions: "play none none none" }, x: 0, opacity: 1, duration: 0.9, ease: "power3.out", clearProps: "transform,opacity" });
+    gsap.fromTo(".education-block li", { x: -30, opacity: 0 }, { scrollTrigger: { trigger: ".education-block", start: "top 92%", toggleActions: "play none none none" }, x: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power2.out", clearProps: "transform,opacity" });
     gsap.fromTo(".skills-block .badge", { scale: 0.6, opacity: 0 }, { scrollTrigger: { trigger: ".skills-block", start: "top 95%", toggleActions: "play none none none" }, scale: 1, opacity: 1, duration: 0.4, stagger: 0.05, ease: "back.out(2)", clearProps: "transform,opacity" });
 
-    gsap.from(".timeline-anim", { scrollTrigger: { trigger: "#timeline", start: "top 85%", toggleActions: "play none none none" }, x: (i) => i % 2 === 0 ? -60 : 60, opacity: 0, duration: 0.8, stagger: 0.15, ease: "power3.out" });
+    gsap.fromTo(".timeline-anim", { y: 40, opacity: 0 }, { scrollTrigger: { trigger: "#timeline", start: "top 90%", toggleActions: "play none none none" }, y: 0, opacity: 1, duration: 0.8, stagger: 0.12, ease: "power3.out", clearProps: "transform,opacity" });
 
-    gsap.from(".project-card-block", { scrollTrigger: { trigger: "#proyectos", start: "top 85%", toggleActions: "play none none none" }, y: 80, opacity: 0, duration: 0.8, stagger: 0.18, ease: "power3.out" });
+    gsap.fromTo(".project-card-block", { y: 50, opacity: 0 }, { scrollTrigger: { trigger: "#proyectos", start: "top 90%", toggleActions: "play none none none" }, y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "power3.out", clearProps: "transform,opacity" });
 
-    gsap.utils.toArray(".section-title-anim").forEach(el => {
-      gsap.from(el, { scrollTrigger: { trigger: el, start: "top 90%", toggleActions: "play none none none" }, y: 30, opacity: 0, duration: 0.7, ease: "power2.out" });
-    });
+    gsap.fromTo(".contact-info-block", { x: -50, opacity: 0 }, { scrollTrigger: { trigger: "#contacto", start: "top 90%", toggleActions: "play none none none" }, x: 0, opacity: 1, duration: 0.8, ease: "power3.out", clearProps: "transform,opacity" });
+    gsap.fromTo(".contact-form-block", { x: 50, opacity: 0 }, { scrollTrigger: { trigger: "#contacto", start: "top 90%", toggleActions: "play none none none" }, x: 0, opacity: 1, duration: 0.8, ease: "power3.out", clearProps: "transform,opacity" });
 
-    gsap.from(".contact-info-block", { scrollTrigger: { trigger: "#contacto", start: "top 85%", toggleActions: "play none none none" }, x: -80, opacity: 0, duration: 0.9, ease: "power3.out" });
-    gsap.from(".contact-form-block", { scrollTrigger: { trigger: "#contacto", start: "top 85%", toggleActions: "play none none none" }, x: 80, opacity: 0, duration: 0.9, ease: "power3.out" });
+    gsap.fromTo(".testimonial-track-wrapper", { y: 30, opacity: 0 }, { scrollTrigger: { trigger: "#testimonios", start: "top 90%", toggleActions: "play none none none" }, y: 0, opacity: 1, duration: 0.8, ease: "power3.out", clearProps: "transform,opacity" });
 
-    gsap.from(".testimonial-track-wrapper", { scrollTrigger: { trigger: "#testimonios", start: "top 85%", toggleActions: "play none none none" }, y: 40, opacity: 0, duration: 0.8, ease: "power3.out" });
-
-    gsap.from(".github-card", { scrollTrigger: { trigger: "#github-activity", start: "top 85%", toggleActions: "play none none none" }, y: 50, opacity: 0, duration: 0.7, stagger: 0.12, ease: "power3.out" });
+    gsap.fromTo(".github-card", { y: 40, opacity: 0 }, { scrollTrigger: { trigger: "#github-activity", start: "top 90%", toggleActions: "play none none none" }, y: 0, opacity: 1, duration: 0.7, stagger: 0.12, ease: "power3.out", clearProps: "transform,opacity" });
 
     ScrollTrigger.create({
       start: "top -80",
@@ -1025,16 +1021,16 @@
       track.dataset.cloned = "true";
       const originalCards = Array.from(track.children);
       
-      // Calculate single set width (4 cards + 4 gaps)
-      let singleSetWidth = 0;
-      originalCards.forEach(c => {
-        singleSetWidth += (c.offsetWidth || 360) + 28;
-      });
-      if (!singleSetWidth || singleSetWidth < 500) singleSetWidth = 1552;
+      const isMobile = window.innerWidth < 768;
+      const cardWidth = isMobile ? 290 : 340;
+      const gap = 28;
+      let singleSetWidth = originalCards.length * (cardWidth + gap);
       track.dataset.singleWidth = singleSetWidth.toString();
 
-      // Clone 3 extra sets so there are 4 sets total (16 cards = ~6200px wide)
-      for (let s = 0; s < 3; s++) {
+      // On mobile (<768px), clone 1 set (2 sets total = 8 cards).
+      // On desktop, clone 2 sets (3 sets total = 12 cards).
+      const cloneCount = isMobile ? 1 : 2;
+      for (let s = 0; s < cloneCount; s++) {
         originalCards.forEach(card => {
           track.appendChild(card.cloneNode(true));
         });
@@ -1044,7 +1040,7 @@
     let paused = false;
     let currentX = 0;
     let animId = null;
-    const speed = 0.85;
+    const speed = window.innerWidth < 768 ? 0.6 : 0.85;
 
     const wrapper = track.parentElement;
     if (wrapper) {
@@ -1057,7 +1053,7 @@
     function step() {
       if (!paused) {
         currentX -= speed;
-        const singleSetWidth = parseFloat(track.dataset.singleWidth) || 1552;
+        const singleSetWidth = parseFloat(track.dataset.singleWidth) || 1472;
         if (Math.abs(currentX) >= singleSetWidth) {
           currentX += singleSetWidth;
         }
