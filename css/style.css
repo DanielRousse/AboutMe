@@ -1130,36 +1130,41 @@ section#testimonios::before {
 .testimonial-track-wrapper {
   width: 100%;
   overflow: hidden;
-  padding: 25px 0;
+  padding: 35px 0 45px 0;
   position: relative;
-  mask-image: linear-gradient(90deg, transparent 0%, #000 2%, #000 98%, transparent 100%);
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 2%, #000 98%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 3%, #000 97%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 3%, #000 97%, transparent 100%);
 }
 
 .testimonial-track {
   display: flex;
-  gap: 24px;
+  gap: 28px;
   width: max-content;
+  align-items: stretch;
   will-change: transform;
   scroll-behavior: auto !important;
 }
 
 .testimonial-card {
-  width: 350px;
-  min-width: 350px;
-  max-width: 350px;
+  width: 360px;
+  min-width: 360px;
+  max-width: 360px;
   flex-shrink: 0;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: 18px;
   padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   backdrop-filter: blur(12px);
-  transition: border-color 0.3s ease, transform 0.3s ease, background 0.7s ease;
+  transition: border-color 0.3s ease, transform 0.3s ease, background 0.7s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
 }
 
 .testimonial-card:hover {
   border-color: var(--neon-cyan);
-  transform: translateY(-6px);
+  transform: translateY(-8px);
 }
 
 .testimonial-quote {

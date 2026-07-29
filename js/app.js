@@ -449,7 +449,7 @@
     gsap.from(".contact-info-block", { scrollTrigger: { trigger: "#contacto", start: "top 85%", toggleActions: "play none none none" }, x: -80, opacity: 0, duration: 0.9, ease: "power3.out" });
     gsap.from(".contact-form-block", { scrollTrigger: { trigger: "#contacto", start: "top 85%", toggleActions: "play none none none" }, x: 80, opacity: 0, duration: 0.9, ease: "power3.out" });
 
-    gsap.from(".testimonial-card", { scrollTrigger: { trigger: "#testimonios", start: "top 85%", toggleActions: "play none none none" }, y: 50, opacity: 0, duration: 0.7, stagger: 0.12, ease: "power3.out" });
+    gsap.from(".testimonial-track-wrapper", { scrollTrigger: { trigger: "#testimonios", start: "top 85%", toggleActions: "play none none none" }, y: 40, opacity: 0, duration: 0.8, ease: "power3.out" });
 
     gsap.from(".github-card", { scrollTrigger: { trigger: "#github-activity", start: "top 85%", toggleActions: "play none none none" }, y: 50, opacity: 0, duration: 0.7, stagger: 0.12, ease: "power3.out" });
 
@@ -1023,11 +1023,22 @@
 
     if (!track.dataset.cloned) {
       track.dataset.cloned = "true";
-      const cards = Array.from(track.children);
-      cards.forEach(card => {
-        const clone = card.cloneNode(true);
-        track.appendChild(clone);
+      const originalCards = Array.from(track.children);
+      
+      // Calculate single set width (4 cards + 4 gaps)
+      let singleSetWidth = 0;
+      originalCards.forEach(c => {
+        singleSetWidth += (c.offsetWidth || 360) + 28;
       });
+      if (!singleSetWidth || singleSetWidth < 500) singleSetWidth = 1552;
+      track.dataset.singleWidth = singleSetWidth.toString();
+
+      // Clone 3 extra sets so there are 4 sets total (16 cards = ~6200px wide)
+      for (let s = 0; s < 3; s++) {
+        originalCards.forEach(card => {
+          track.appendChild(card.cloneNode(true));
+        });
+      }
     }
 
     let paused = false;
@@ -1046,9 +1057,9 @@
     function step() {
       if (!paused) {
         currentX -= speed;
-        const halfWidth = track.scrollWidth / 2;
-        if (Math.abs(currentX) >= halfWidth) {
-          currentX += halfWidth;
+        const singleSetWidth = parseFloat(track.dataset.singleWidth) || 1552;
+        if (Math.abs(currentX) >= singleSetWidth) {
+          currentX += singleSetWidth;
         }
         track.style.transform = `translate3d(${currentX}px, 0, 0)`;
       }
