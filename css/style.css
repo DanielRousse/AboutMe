@@ -1127,21 +1127,27 @@ section#testimonios::before {
   transition: width 1.2s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.7s ease;
 }
 
+.testimonial-track-wrapper {
+  width: 100%;
+  overflow: hidden;
+  padding: 25px 0;
+  position: relative;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 2%, #000 98%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 2%, #000 98%, transparent 100%);
+}
+
 .testimonial-track {
   display: flex;
   gap: 24px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding: 20px 0;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  width: max-content;
+  will-change: transform;
+  scroll-behavior: auto !important;
 }
 
-.testimonial-track::-webkit-scrollbar { display: none; }
-
 .testimonial-card {
-  min-width: 320px;
-  max-width: 360px;
+  width: 350px;
+  min-width: 350px;
+  max-width: 350px;
   flex-shrink: 0;
   background: var(--bg-card);
   border: 1px solid var(--border-color);

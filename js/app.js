@@ -680,6 +680,7 @@
       currentTheme = theme;
       if (theme === "theme-dev" && matrixRain) matrixRain.start();
       else if (matrixRain) matrixRain.stop();
+      if (window.refreshTechRadar) window.refreshTechRadar();
       if (typeof gsap !== "undefined") gsap.fromTo("main", { opacity: 0.92 }, { opacity: 1, duration: 0.4, ease: "power2.out" });
     }
 
@@ -687,6 +688,7 @@
       if (currentTheme === "theme-dev" && matrixRain) matrixRain.stop();
       document.body.classList.remove("theme-mech", "theme-dev");
       currentTheme = null;
+      if (window.refreshTechRadar) window.refreshTechRadar();
       if (typeof gsap !== "undefined") gsap.fromTo("main", { opacity: 0.95 }, { opacity: 1, duration: 0.3, ease: "power2.out" });
     }
 
@@ -811,6 +813,7 @@
       document.body.classList.toggle("theme-light", val);
       btn.textContent = val ? "☀️" : "🌙";
       localStorage.setItem("portfolio-theme-light", val.toString());
+      if (window.refreshTechRadar) window.refreshTechRadar();
     }
 
     if (isLight) applyLight(true);
@@ -838,12 +841,54 @@
     ];
 
     const ctx = canvas.getContext("2d");
-    const cx = 160, cy = 160, maxR = 120;
+    const cx = 160, cy = 160, maxR = 115;
     const n = skills.length;
     const angleStep = (2 * Math.PI) / n;
 
+    function getRadarColors() {
+      if (document.body.classList.contains("theme-light")) {
+        return {
+          label: "#1a1a2e",
+          grid: "rgba(26, 26, 46, 0.16)",
+          axis: "rgba(26, 26, 46, 0.12)",
+          fill: "rgba(0, 119, 145, 0.18)",
+          stroke: "rgba(0, 119, 145, 0.85)"
+        };
+      } else if (document.body.classList.contains("theme-dev")) {
+        return {
+          label: "#00FF41",
+          grid: "rgba(0, 255, 65, 0.2)",
+          axis: "rgba(0, 255, 65, 0.15)",
+          fill: "rgba(0, 255, 65, 0.18)",
+          stroke: "rgba(0, 255, 65, 0.9)"
+        };
+      } else if (document.body.classList.contains("theme-mech")) {
+        return {
+          label: "#FFB98C",
+          grid: "rgba(255, 107, 53, 0.22)",
+          axis: "rgba(255, 107, 53, 0.15)",
+          fill: "rgba(255, 107, 53, 0.18)",
+          stroke: "rgba(255, 107, 53, 0.85)"
+        };
+      } else {
+        return {
+          label: "rgba(255, 255, 255, 0.9)",
+          grid: "rgba(255, 255, 255, 0.12)",
+          axis: "rgba(255, 255, 255, 0.08)",
+          fill: "rgba(0, 240, 255, 0.15)",
+          stroke: "rgba(0, 240, 255, 0.75)"
+        };
+      }
+    }
+
+    let lastProgress = 0;
+
     function drawRadar(animProgress) {
+      if (typeof animProgress === "number") lastProgress = animProgress;
+      else animProgress = lastProgress || 1;
+
       ctx.clearRect(0, 0, 320, 320);
+      const colors = getRadarColors();
 
       for (let ring = 1; ring <= 4; ring++) {
         const r = (maxR / 4) * ring;
@@ -853,7 +898,7 @@
           const x = cx + r * Math.cos(angle), y = cy + r * Math.sin(angle);
           i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
         }
-        ctx.strokeStyle = "rgba(255,255,255,0.08)";
+        ctx.strokeStyle = colors.grid;
         ctx.lineWidth = 1;
         ctx.stroke();
       }
@@ -863,13 +908,13 @@
         ctx.beginPath();
         ctx.moveTo(cx, cy);
         ctx.lineTo(cx + maxR * Math.cos(angle), cy + maxR * Math.sin(angle));
-        ctx.strokeStyle = "rgba(255,255,255,0.06)";
+        ctx.strokeStyle = colors.axis;
         ctx.stroke();
 
-        const labelR = maxR + 18;
+        const labelR = maxR + 22;
         const lx = cx + labelR * Math.cos(angle), ly = cy + labelR * Math.sin(angle);
-        ctx.fillStyle = "rgba(255,255,255,0.6)";
-        ctx.font = "10px Outfit, sans-serif";
+        ctx.fillStyle = colors.label;
+        ctx.font = "600 11px Outfit, sans-serif";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText(skills[i].name, lx, ly);
@@ -883,9 +928,9 @@
         const x = cx + r * Math.cos(angle), y = cy + r * Math.sin(angle);
         i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
       }
-      ctx.fillStyle = "rgba(0, 240, 255, 0.12)";
+      ctx.fillStyle = colors.fill;
       ctx.fill();
-      ctx.strokeStyle = "rgba(0, 240, 255, 0.6)";
+      ctx.strokeStyle = colors.stroke;
       ctx.lineWidth = 2;
       ctx.stroke();
 
@@ -902,6 +947,8 @@
         ctx.stroke();
       }
     }
+
+    window.refreshTechRadar = () => drawRadar(1);
 
     let legendHTML = "";
     skills.forEach(s => {
@@ -984,21 +1031,26 @@
     }
 
     let paused = false;
+    let currentX = 0;
     let animId = null;
-    const speed = 0.75;
+    const speed = 0.85;
 
-    track.addEventListener("mouseenter", () => { paused = true; });
-    track.addEventListener("mouseleave", () => { paused = false; });
-    track.addEventListener("touchstart", () => { paused = true; }, { passive: true });
-    track.addEventListener("touchend", () => { paused = false; }, { passive: true });
+    const wrapper = track.parentElement;
+    if (wrapper) {
+      wrapper.addEventListener("mouseenter", () => { paused = true; });
+      wrapper.addEventListener("mouseleave", () => { paused = false; });
+      wrapper.addEventListener("touchstart", () => { paused = true; }, { passive: true });
+      wrapper.addEventListener("touchend", () => { paused = false; }, { passive: true });
+    }
 
     function step() {
       if (!paused) {
-        track.scrollLeft += speed;
+        currentX -= speed;
         const halfWidth = track.scrollWidth / 2;
-        if (track.scrollLeft >= halfWidth - 1) {
-          track.scrollLeft -= halfWidth;
+        if (Math.abs(currentX) >= halfWidth) {
+          currentX += halfWidth;
         }
+        track.style.transform = `translate3d(${currentX}px, 0, 0)`;
       }
       animId = requestAnimationFrame(step);
     }
