@@ -30,6 +30,7 @@
       "about.edu_item1": "Instituto Tecnológico de Tláhuac (Título en proceso, 2021 - 2026)",
       "about.edu_item2": "Generation México (Abril 2026 - Julio 2026)",
       "about.edu_item3": "Accenture (2026)",
+      "about.view_cert": "🏅 Ver Certificado",
       "about.edu_item4": "Nivel B1",
       "about.skills_title": "Habilidades Técnicas",
       "about.skills_soft_title": "Habilidades Blandas",
@@ -57,6 +58,7 @@
       "projects.p1_bullet3": "Programé e integré la lógica para conectar un sensor de huella dactilar físico en MATLAB.",
       "projects.p1_bullet4": "Co-redacté un artículo científico y expuse resultados en el congreso internacional CITCA.",
       "projects.p1_detail": "Este proyecto involucró el procesamiento de imágenes médicas con técnicas de compresión sin pérdida, asegurando que las imágenes pudieran reconstruirse fielmente para diagnóstico. Se implementó un sistema biométrico con sensor de huella dactilar para control de acceso al sistema, demostrando la integración exitosa entre hardware y software médico.",
+      "projects.p1_paper": "📄 Ver Artículo CITCA",
       "projects.details": "Ver detalles",
       "projects.p2_title": "E-commerce Backend | Fyndr",
       "projects.p2_desc": "Plataforma de comercio electrónico para contratación de servicios y oficios técnicos.",
@@ -148,6 +150,7 @@
       "about.edu_item1": "Instituto Tecnológico de Tláhuac (Degree in progress, 2021 - 2026)",
       "about.edu_item2": "Generation México (April 2026 - July 2026)",
       "about.edu_item3": "Accenture (2026)",
+      "about.view_cert": "🏅 View Certificate",
       "about.edu_item4": "B1 Level",
       "about.skills_title": "Technical Skills",
       "about.skills_soft_title": "Soft Skills",
@@ -175,6 +178,7 @@
       "projects.p1_bullet3": "Programmed and integrated logic to connect a physical fingerprint sensor in MATLAB.",
       "projects.p1_bullet4": "Co-authored a scientific paper and presented results at the CITCA international congress.",
       "projects.p1_detail": "This project involved processing medical images with lossless compression techniques, ensuring images could be faithfully reconstructed for diagnosis. A biometric system with a fingerprint sensor was implemented for system access control, demonstrating successful integration between medical hardware and software.",
+      "projects.p1_paper": "📄 View CITCA Paper",
       "projects.details": "View details",
       "projects.p2_title": "E-commerce Backend | Fyndr",
       "projects.p2_desc": "E-commerce platform for hiring technical services and trades.",
@@ -316,6 +320,8 @@
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     let W, H, particles = [];
+    const isMobile = !window.matchMedia("(pointer: fine)").matches || window.innerWidth < 768;
+    const PARTICLE_COUNT = isMobile ? 30 : 100;
     function resize() { W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; }
     const COLORS = ["rgba(255,42,133,", "rgba(0,240,255,", "rgba(254,222,21,"];
     function Particle() {
@@ -329,7 +335,7 @@
       };
       this.reset();
     }
-    for (let i = 0; i < 100; i++) particles.push(new Particle());
+    for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
     function drawConnections() {
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
@@ -344,7 +350,8 @@
       }
     }
     function loop() {
-      ctx.clearRect(0, 0, W, H); drawConnections();
+      ctx.clearRect(0, 0, W, H);
+      if (!isMobile) drawConnections();
       particles.forEach(p => {
         p.x += p.vx; p.y += p.vy; p.life++;
         if (p.x < 0 || p.x > W) p.vx *= -1;
@@ -1162,6 +1169,8 @@
   }
 
   function initThreeJS() {
+    const isMobile = !window.matchMedia("(pointer: fine)").matches || window.innerWidth < 768;
+    if (isMobile) return;
     if (typeof THREE === "undefined") {
       window.addEventListener("load", () => { if (typeof THREE !== "undefined") setupThree(); });
       return;
