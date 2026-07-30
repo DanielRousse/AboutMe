@@ -1281,38 +1281,63 @@
   function initPDFViewerModal() {
     const modalEl = document.getElementById("pdfViewerModal");
     const iframe = document.getElementById("pdfViewerIframe");
-    if (!modalEl || !iframe) return;
+    const imgViewer = document.getElementById("modalImageViewer");
+    if (!modalEl) return;
 
-    document.querySelectorAll("a[href$='.pdf']").forEach(link => {
+    const documentSelector = "a[href$='.pdf'], a[href$='.png'], a[href$='.jpg'], a[href$='.jpeg'], a[href$='.webp']";
+
+    document.querySelectorAll(documentSelector).forEach(link => {
       // Do not intercept the main CV download button if user wants to download public CV
       if (link.getAttribute("download") !== null || link.id === "btn-cv-download") return;
 
       link.addEventListener("click", (e) => {
         if (e.ctrlKey || e.metaKey || e.shiftKey) return;
         const rawUrl = link.getAttribute("href");
-        if (rawUrl && typeof bootstrap !== "undefined") {
-          e.preventDefault();
+        if (!rawUrl || typeof bootstrap === "undefined") return;
 
-          const isMobile = window.innerWidth < 768 || !window.matchMedia("(pointer: fine)").matches;
-          let finalViewerUrl = rawUrl;
+        e.preventDefault();
+        const lowerUrl = rawUrl.toLowerCase();
+        const isImage = lowerUrl.endsWith(".png") || lowerUrl.endsWith(".jpg") || lowerUrl.endsWith(".jpeg") || lowerUrl.endsWith(".webp");
 
-          if (isMobile && window.location.protocol.startsWith("http")) {
-            const absoluteUrl = new URL(rawUrl, window.location.href).href;
-            finalViewerUrl = `https://docs.google.com/gview?url=${encodeURIComponent(absoluteUrl)}&embedded=true`;
-          } else {
-            // Hide native browser PDF download/print toolbar
-            finalViewerUrl = `${rawUrl}#toolbar=0&navpanes=0&scrollbar=1`;
+        if (isImage) {
+          if (iframe) {
+            iframe.src = "";
+            iframe.style.display = "none";
           }
+          if (imgViewer) {
+            imgViewer.src = rawUrl;
+            imgViewer.style.display = "block";
+          }
+        } else {
+          if (imgViewer) {
+            imgViewer.src = "";
+            imgViewer.style.display = "none";
+          }
+          if (iframe) {
+            const isMobile = window.innerWidth < 768 || !window.matchMedia("(pointer: fine)").matches;
+            let finalViewerUrl = rawUrl;
 
-          iframe.src = finalViewerUrl;
-          const modal = new bootstrap.Modal(modalEl);
-          modal.show();
+            if (isMobile && window.location.protocol.startsWith("http")) {
+              const absoluteUrl = new URL(rawUrl, window.location.href).href;
+              finalViewerUrl = `https://docs.google.com/gview?url=${encodeURIComponent(absoluteUrl)}&embedded=true`;
+            } else {
+              // Hide native browser PDF download/print toolbar
+              finalViewerUrl = `${rawUrl}#toolbar=0&navpanes=0&scrollbar=1`;
+            }
+
+            iframe.src = finalViewerUrl;
+            iframe.style.display = "block";
+          }
         }
+
+        const modal = new bootstrap.Modal(modalEl);
+        modal.show();
       });
     });
 
     modalEl.addEventListener("hidden.bs.modal", () => {
-      iframe.src = "";
+      if (iframe) iframe.src = "";
+      if (imgViewer) imgViewer.src = "";
     });
   }
 

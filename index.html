@@ -207,7 +207,7 @@
                   <li class="mb-3">
                     <span class="d-block fw-bold text-white">Introducción a Java</span>
                     <span class="small d-block" data-i18n="about.edu_item3">Accenture (2026)</span>
-                    <a href="assets/certificado_Learning_to_Earning - Java.pdf" target="_blank" rel="noopener" class="small text-neon-cyan" style="text-decoration:none;" data-i18n="about.view_cert_accenture">🏅 Ver Certificado</a>
+                    <a href="assets/certificado_Learning_to_Earning - Java - Sanitizado.pdf" target="_blank" rel="noopener" class="small text-neon-cyan" style="text-decoration:none;" data-i18n="about.view_cert_accenture">🏅 Ver Certificado</a>
                   </li>
                   <li>
                     <span class="d-block fw-bold text-white">Inglés</span>
@@ -693,8 +693,9 @@
           <h5 class="modal-title text-neon-cyan mb-0" id="pdfViewerModalLabel">Vista previa de Documento</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body p-0" style="height: 80vh;">
-          <iframe id="pdfViewerIframe" src="" style="width: 100%; height: 100%; border: none;"></iframe>
+        <div class="modal-body p-3 text-center d-flex align-items-center justify-content-center" style="min-height: 70vh; max-height: 85vh; overflow: auto;">
+          <iframe id="pdfViewerIframe" src="" style="width: 100%; height: 80vh; border: none; display: none;"></iframe>
+          <img id="modalImageViewer" src="" alt="Vista previa de Certificado" class="img-fluid rounded shadow" style="max-height: 80vh; object-fit: contain; display: none;">
         </div>
       </div>
     </div>
