@@ -1047,28 +1047,17 @@
       SQL: "#00f0ff"
     };
 
-    const repoFallbacks = {
-      "Cafeter-a_JAVA": {
-        descEs: "Sistema de gestión y pedidos para cafetería desarrollado en Java.",
-        descEn: "Coffee shop management and ordering system developed in Java.",
-        lang: "Java"
-      },
-      "DB_NOSQL": {
-        descEs: "Modelado de datos y consultas avanzadas en bases NoSQL y relacionales.",
-        descEn: "Data modeling and advanced queries in NoSQL and relational databases.",
-        lang: "SQL"
-      },
-      "BCKEND_FYNDR": {
-        descEs: "Arquitectura backend escalable en Java y Spring Boot para plataforma de servicios.",
-        descEn: "Scalable backend architecture in Java and Spring Boot for a services platform.",
-        lang: "Java"
-      },
-      "AboutMe": {
-        descEs: "Portafolio web profesional e interactivo con animaciones avanzadas y terminal.",
-        descEn: "Professional interactive web portfolio with advanced animations and terminal.",
-        lang: "JavaScript"
-      }
-    };
+    function detectLanguage(repo) {
+      if (repo.language) return repo.language;
+      const name = (repo.name || "").toLowerCase();
+      if (name.includes("java")) return "Java";
+      if (name.includes("sql") || name.includes("db")) return "SQL";
+      if (name.includes("js") || name.includes("script")) return "JavaScript";
+      if (name.includes("py")) return "Python";
+      if (name.includes("matlab")) return "MATLAB";
+      if (name.includes("html") || name.includes("css")) return "HTML/CSS";
+      return null;
+    }
 
     fetch("https://api.github.com/users/DanielRousse/repos?sort=updated&per_page=4")
       .then(r => { if (!r.ok) throw new Error(); return r.json(); })
@@ -1077,12 +1066,17 @@
         repos.forEach(repo => {
           const updated = new Date(repo.updated_at).toLocaleDateString(currentLang === "es" ? "es-MX" : "en-US", { year: "numeric", month: "short", day: "numeric" });
 
-          const fallback = repoFallbacks[repo.name] || {};
-          const fallbackDesc = currentLang === "es" ? fallback.descEs : fallback.descEn;
-          const descText = repo.description || fallbackDesc || (currentLang === "es" ? "Repositorio de código público en GitHub." : "Public code repository on GitHub.");
+          const detectedLang = detectLanguage(repo);
+          const langColor = detectedLang ? (langColors[detectedLang] || "#00f0ff") : null;
 
-          const detectedLang = repo.language || fallback.lang || (repo.name.toLowerCase().includes("java") ? "Java" : repo.name.toLowerCase().includes("sql") ? "SQL" : "Code");
-          const langColor = langColors[detectedLang] || "#00f0ff";
+          let descText = repo.description;
+          if (!descText) {
+            if (detectedLang) {
+              descText = currentLang === "es" ? `Proyecto de código en ${detectedLang}.` : `Code project in ${detectedLang}.`;
+            } else {
+              descText = currentLang === "es" ? "Repositorio público en GitHub." : "Public GitHub repository.";
+            }
+          }
 
           const col = document.createElement("div");
           col.className = "col-lg-3 col-md-6";
@@ -1090,7 +1084,7 @@
             <h4 class="h6 fw-bold text-white mb-2" style="word-break:break-word">${repo.name}</h4>
             <p class="small text-light-slate mb-3" style="min-height:42px">${descText}</p>
             <div class="d-flex align-items-center gap-3 small text-light-slate">
-              <span class="d-flex align-items-center gap-1"><span class="github-lang-dot" style="background:${langColor}"></span>${detectedLang}</span>
+              ${detectedLang ? `<span class="d-flex align-items-center gap-1"><span class="github-lang-dot" style="background:${langColor}"></span>${detectedLang}</span>` : ""}
               <span>⭐ ${repo.stargazers_count}</span>
             </div>
             <p class="small text-light-slate mt-2 mb-0"><span data-i18n="github.updated">${translations[currentLang]["github.updated"]}</span>: ${updated}</p>
