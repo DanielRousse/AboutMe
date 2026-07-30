@@ -31,10 +31,31 @@
       "about.edu_item2": "Generation México (Abril 2026 - Julio 2026)",
       "about.edu_item3": "Accenture (2026)",
       "about.view_cert": "🏅 Ver Certificado",
-      "about.edu_item4": "Nivel B1",
-      "about.skills_title": "Habilidades Técnicas",
-      "about.skills_soft_title": "Habilidades Blandas",
-      "about.skills_soft_desc": "Trabajo en equipo multidisciplinario, Resolución de problemas complejos, Resiliencia y proactividad, Comunicación y formación efectiva.",
+      "nav.certs": "Certificaciones",
+      "about.edu_item4": "Nivel B2 (Intermedio Alto)",
+      "about.view_cert_bootcamp": "🏅 Ver Certificado",
+      "about.view_cert_accenture": "🏅 Ver Certificado",
+      "about.view_cert_english": "🏅 Ver Certificado EFSET",
+      "about.soft_teamwork": "Trabajo en equipo",
+      "about.soft_problem": "Resolución de problemas",
+      "about.soft_resilience": "Resiliencia",
+      "about.soft_proactive": "Proactividad",
+      "about.soft_communication": "Comunicación efectiva",
+      "about.soft_leadership": "Liderazgo",
+      "certs.title": "Certificaciones y Constancias",
+      "certs.citca_title": "Reconocimiento CITCA",
+      "certs.citca_desc": "Congreso Internacional en Tecnologías Computacionales Avanzadas",
+      "certs.paper_title": "Artículo Científico CITCA",
+      "certs.paper_desc": "Paper sobre sistemas biométricos con procesamiento de imágenes médicas",
+      "certs.innova24_title": "InnovaTecNM 2024",
+      "certs.innova24_desc": "Constancia de participación en evento de innovación tecnológica",
+      "certs.innova25_title": "InnovaTecNM 2025",
+      "certs.innova25_desc": "Constancia de participación en evento de innovación tecnológica",
+      "certs.mooc_title": "Curso MOOC TecNM",
+      "certs.mooc_desc": "Certificado PIEIT01-001 — Cursos en línea del Tecnológico Nacional de México",
+      "certs.ddhh_title": "Derechos Humanos",
+      "certs.ddhh_desc": "Certificado de formación en derechos humanos",
+      "cta.text": "Contrátame",
       "timeline.title": "Trayectoria",
       "timeline.t1_title": "Ingreso a Ingeniería Mecatrónica",
       "timeline.t1_desc": "Inicio de la carrera en el Instituto Tecnológico de Tláhuac, fusionando mecánica, electrónica y programación.",
@@ -151,10 +172,31 @@
       "about.edu_item2": "Generation México (April 2026 - July 2026)",
       "about.edu_item3": "Accenture (2026)",
       "about.view_cert": "🏅 View Certificate",
-      "about.edu_item4": "B1 Level",
-      "about.skills_title": "Technical Skills",
-      "about.skills_soft_title": "Soft Skills",
-      "about.skills_soft_desc": "Multidisciplinary teamwork, Complex problem solving, Resilience and proactivity, Effective communication and training.",
+      "nav.certs": "Certifications",
+      "about.edu_item4": "B2 Level (Upper-Intermediate)",
+      "about.view_cert_bootcamp": "🏅 View Certificate",
+      "about.view_cert_accenture": "🏅 View Certificate",
+      "about.view_cert_english": "🏅 View EFSET Certificate",
+      "about.soft_teamwork": "Teamwork",
+      "about.soft_problem": "Problem solving",
+      "about.soft_resilience": "Resilience",
+      "about.soft_proactive": "Proactivity",
+      "about.soft_communication": "Effective communication",
+      "about.soft_leadership": "Leadership",
+      "certs.title": "Certifications & Records",
+      "certs.citca_title": "CITCA Recognition",
+      "certs.citca_desc": "International Congress on Advanced Computer Technologies",
+      "certs.paper_title": "CITCA Scientific Paper",
+      "certs.paper_desc": "Paper on biometric systems with medical image processing",
+      "certs.innova24_title": "InnovaTecNM 2024",
+      "certs.innova24_desc": "Certificate of participation in technological innovation event",
+      "certs.innova25_title": "InnovaTecNM 2025",
+      "certs.innova25_desc": "Certificate of participation in technological innovation event",
+      "certs.mooc_title": "TecNM MOOC Course",
+      "certs.mooc_desc": "Certificate PIEIT01-001 — Online courses from TecNM",
+      "certs.ddhh_title": "Human Rights",
+      "certs.ddhh_desc": "Certificate of training in human rights",
+      "cta.text": "Hire Me",
       "timeline.title": "Journey",
       "timeline.t1_title": "Mechatronics Engineering Start",
       "timeline.t1_desc": "Started the degree at Instituto Tecnológico de Tláhuac, merging mechanics, electronics, and programming.",
@@ -446,6 +488,8 @@
     gsap.fromTo(".skills-block .badge", { scale: 0.6, opacity: 0 }, { scrollTrigger: { trigger: ".skills-block", start: "top 95%", toggleActions: "play none none none" }, scale: 1, opacity: 1, duration: 0.4, stagger: 0.05, ease: "back.out(2)", clearProps: "transform,opacity" });
 
     gsap.fromTo(".timeline-anim", { y: 40, opacity: 0 }, { scrollTrigger: { trigger: "#timeline", start: "top 90%", toggleActions: "play none none none" }, y: 0, opacity: 1, duration: 0.8, stagger: 0.12, ease: "power3.out", clearProps: "transform,opacity" });
+
+    gsap.fromTo(".cert-card-block", { y: 40, opacity: 0 }, { scrollTrigger: { trigger: "#certificaciones", start: "top 90%", toggleActions: "play none none none" }, y: 0, opacity: 1, duration: 0.7, stagger: 0.1, ease: "power3.out", clearProps: "transform,opacity" });
 
     gsap.fromTo(".project-card-block", { y: 50, opacity: 0 }, { scrollTrigger: { trigger: "#proyectos", start: "top 90%", toggleActions: "play none none none" }, y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "power3.out", clearProps: "transform,opacity" });
 
@@ -1168,9 +1212,75 @@
     });
   }
 
+  function initPreloader() {
+    const preloader = document.getElementById("preloader");
+    if (!preloader) return;
+    const hide = () => {
+      preloader.classList.add("hidden");
+    };
+    if (document.readyState === "complete") {
+      setTimeout(hide, 400);
+    } else {
+      window.addEventListener("load", () => setTimeout(hide, 400));
+      setTimeout(hide, 2000);
+    }
+  }
+
+  function initFloatingCTA() {
+    const cta = document.getElementById("cta-float");
+    const hero = document.getElementById("inicio");
+    if (!cta || !hero) return;
+
+    window.addEventListener("scroll", () => {
+      const heroBottom = hero.getBoundingClientRect().bottom;
+      if (heroBottom < 100) {
+        cta.classList.add("visible");
+      } else {
+        cta.classList.remove("visible");
+      }
+    }, { passive: true });
+  }
+
+  function initPDFViewerModal() {
+    const modalEl = document.getElementById("pdfViewerModal");
+    const iframe = document.getElementById("pdfViewerIframe");
+    if (!modalEl || !iframe) return;
+
+    document.querySelectorAll("a[href$='.pdf']").forEach(link => {
+      link.addEventListener("click", (e) => {
+        if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+        const pdfUrl = link.getAttribute("href");
+        if (pdfUrl && typeof bootstrap !== "undefined") {
+          e.preventDefault();
+          iframe.src = pdfUrl;
+          const modal = new bootstrap.Modal(modalEl);
+          modal.show();
+        }
+      });
+    });
+
+    modalEl.addEventListener("hidden.bs.modal", () => {
+      iframe.src = "";
+    });
+  }
+
   function initThreeJS() {
+    const container = document.getElementById("three-canvas-container");
+    if (!container) return;
+
     const isMobile = !window.matchMedia("(pointer: fine)").matches || window.innerWidth < 768;
-    if (isMobile) return;
+    if (isMobile) {
+      container.innerHTML = `
+        <div class="mobile-3d-shapes" aria-hidden="true">
+          <div class="mobile-3d-shape"></div>
+          <div class="mobile-3d-shape"></div>
+          <div class="mobile-3d-shape"></div>
+          <div class="mobile-3d-shape"></div>
+        </div>
+      `;
+      return;
+    }
+
     if (typeof THREE === "undefined") {
       window.addEventListener("load", () => { if (typeof THREE !== "undefined") setupThree(); });
       return;
@@ -1231,6 +1341,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", () => {
+    initPreloader();
     updateLanguage(currentLang);
 
     document.getElementById("lang-btn-es")?.addEventListener("click", () => updateLanguage("es"));
@@ -1259,6 +1370,8 @@
     initCustomCursor();
     initKonamiCode();
     initThreeJS();
+    initFloatingCTA();
+    initPDFViewerModal();
   });
 
 })();
