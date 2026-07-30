@@ -1,0 +1,9 @@
+# Robots.txt for Jonathan Reyes Portfolio
+User-agent: *
+Disallow: /assets/*.pdf
+Disallow: /assets/*.png
+Disallow: /assets/*.jpg
+Disallow: /files/
+Allow: /
+
+Sitemap: https://danielrousse.github.io/AboutMe/sitemap.xml

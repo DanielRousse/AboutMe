@@ -141,7 +141,9 @@
       "terminal.about": "Soy Jonathan Daniel Reyes Gordillo.\nDesarrollador Java Full Stack Jr. e Ingeniero en Mecatrónica.\nUbicación: Ciudad de México.\nPasión: Materializar ideas digitales en el mundo físico.",
       "terminal.skills": "Habilidades técnicas:\n  ► Java & Spring Boot  ████████░░ 80%\n  ► JavaScript          ███████░░░ 70%\n  ► SQL/MySQL           ████████░░ 80%\n  ► Python              ██████░░░░ 60%\n  ► MATLAB              ███████░░░ 70%\n  ► HTML/CSS            █████████░ 90%\n  ► Git                 ████████░░ 80%\n  ► Node.js             ██████░░░░ 60%",
       "terminal.projects": "Proyectos destacados:\n  1. Software Médico & Biométrico (ITT)\n  2. E-commerce Backend - Fyndr (Spring Boot)\n  3. Hackaton Kungfu Shop (Full Stack)\n  Escribe 'visit 1/2/3' para ver más.",
-      "terminal.contact": "Contacto:\n  Email: reyesgordillojonathandaniel@gmail.com\n  Tel:   +52 55 6132 5250\n  GitHub: github.com/DanielRousse\n  LinkedIn: linkedin.com/in/jonathandrg",
+      "contact.copy_email": "📋 Copiar",
+      "contact.copied": "¡Copiado!",
+      "terminal.contact": "Contacto:\n  Email: reyesgordillojonathandaniel@gmail.com\n  GitHub: github.com/DanielRousse\n  LinkedIn: linkedin.com/in/jonathandrg\n  WhatsApp: wa.me/525561325250",
       "terminal.unknown": "Comando no reconocido. Escribe 'help' para ver comandos.",
       "terminal.theme_changed": "Tema cambiado a: ",
       "terminal.theme_options": "Uso: theme [mech|dev|default]",
@@ -282,7 +284,9 @@
       "terminal.about": "I'm Jonathan Daniel Reyes Gordillo.\nJunior Java Full Stack Developer & Mechatronics Engineer.\nLocation: Mexico City.\nPassion: Materializing digital ideas into the physical world.",
       "terminal.skills": "Technical skills:\n  ► Java & Spring Boot  ████████░░ 80%\n  ► JavaScript          ███████░░░ 70%\n  ► SQL/MySQL           ████████░░ 80%\n  ► Python              ██████░░░░ 60%\n  ► MATLAB              ███████░░░ 70%\n  ► HTML/CSS            █████████░ 90%\n  ► Git                 ████████░░ 80%\n  ► Node.js             ██████░░░░ 60%",
       "terminal.projects": "Featured projects:\n  1. Medical & Biometric Software (ITT)\n  2. E-commerce Backend - Fyndr (Spring Boot)\n  3. Hackathon Kungfu Shop (Full Stack)\n  Type 'visit 1/2/3' for more.",
-      "terminal.contact": "Contact:\n  Email: reyesgordillojonathandaniel@gmail.com\n  Phone: +52 55 6132 5250\n  GitHub: github.com/DanielRousse\n  LinkedIn: linkedin.com/in/jonathandrg",
+      "contact.copy_email": "📋 Copy",
+      "contact.copied": "Copied!",
+      "terminal.contact": "Contact:\n  Email: reyesgordillojonathandaniel@gmail.com\n  GitHub: github.com/DanielRousse\n  LinkedIn: linkedin.com/in/jonathandrg\n  WhatsApp: wa.me/525561325250",
       "terminal.unknown": "Command not recognized. Type 'help' for commands.",
       "terminal.theme_changed": "Theme changed to: ",
       "terminal.theme_options": "Usage: theme [mech|dev|default]",
@@ -1384,8 +1388,44 @@
     });
   }
 
+  function enforceHTTPS() {
+    if (window.location.protocol === "http:" && window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1") {
+      window.location.href = window.location.href.replace("http:", "https:");
+    }
+  }
+
+  function initEmailProtection() {
+    const emailEl = document.getElementById("email-obfuscated");
+    const copyBtn = document.getElementById("btn-copy-email");
+    if (!emailEl) return;
+
+    const user = emailEl.dataset.user;
+    const domain = emailEl.dataset.domain;
+    if (user && domain) {
+      const fullEmail = `${user}@${domain}`;
+      emailEl.textContent = fullEmail;
+      emailEl.href = `mailto:${fullEmail}`;
+
+      if (copyBtn) {
+        copyBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(fullEmail).then(() => {
+            showCustomAlert(translations[currentLang]["contact.copied"] || "¡Copiado!", "success");
+            copyBtn.textContent = translations[currentLang]["contact.copied"] || "¡Copiado!";
+            setTimeout(() => {
+              copyBtn.textContent = translations[currentLang]["contact.copy_email"] || "📋 Copiar";
+            }, 2500);
+          }).catch(() => {
+            showCustomAlert(fullEmail, "info");
+          });
+        });
+      }
+    }
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
+    enforceHTTPS();
     initPreloader();
+    initEmailProtection();
     updateLanguage(currentLang);
 
     document.getElementById("lang-btn-es")?.addEventListener("click", () => updateLanguage("es"));
