@@ -1244,15 +1244,26 @@
   function initPDFViewerModal() {
     const modalEl = document.getElementById("pdfViewerModal");
     const iframe = document.getElementById("pdfViewerIframe");
+    const downloadBtn = document.getElementById("pdfDownloadBtn");
     if (!modalEl || !iframe) return;
 
     document.querySelectorAll("a[href$='.pdf']").forEach(link => {
       link.addEventListener("click", (e) => {
         if (e.ctrlKey || e.metaKey || e.shiftKey) return;
-        const pdfUrl = link.getAttribute("href");
-        if (pdfUrl && typeof bootstrap !== "undefined") {
+        const rawUrl = link.getAttribute("href");
+        if (rawUrl && typeof bootstrap !== "undefined") {
           e.preventDefault();
-          iframe.src = pdfUrl;
+          if (downloadBtn) downloadBtn.href = rawUrl;
+
+          const isMobile = window.innerWidth < 768 || !window.matchMedia("(pointer: fine)").matches;
+          let finalViewerUrl = rawUrl;
+
+          if (isMobile && window.location.protocol.startsWith("http")) {
+            const absoluteUrl = new URL(rawUrl, window.location.href).href;
+            finalViewerUrl = `https://docs.google.com/gview?url=${encodeURIComponent(absoluteUrl)}&embedded=true`;
+          }
+
+          iframe.src = finalViewerUrl;
           const modal = new bootstrap.Modal(modalEl);
           modal.show();
         }
