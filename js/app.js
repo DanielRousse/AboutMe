@@ -26,7 +26,12 @@
       "stats.papers": "Artículo científico",
       "about.title": "Sobre Mí",
       "about.desc": "Soy un desarrollador Java Full Stack Jr. e Ingeniero en Mecatrónica que disfruta diseñar la arquitectura detrás de aplicaciones web, resolver problemas lógicos complejos y crear soluciones integrales que conecten el software con el mundo físico. Mi experiencia clave incluye la creación de sistemas de seguridad biométrica, gestión de datos especializados y modelado digital.",
-      "about.edu_title": "Formación y Certificaciones",
+      "about.edu_degree1": "Ingeniería en Mecatrónica",
+      "about.edu_degree2": "Bootcamp Java Full Stack",
+      "about.edu_degree3": "Introducción a Java",
+      "about.edu_lang_title": "Inglés",
+      "about.skills_title": "Habilidades Técnicas",
+      "about.skills_soft_title": "Habilidades Blandas",
       "about.edu_item1": "Instituto Tecnológico de Tláhuac (Título en proceso, 2021 - 2026)",
       "about.edu_item2": "Generation México (Abril 2026 - Julio 2026)",
       "about.edu_item3": "Accenture (2026)",
@@ -169,7 +174,12 @@
       "stats.papers": "Scientific paper",
       "about.title": "About Me",
       "about.desc": "I am a Junior Java Full Stack Developer and Mechatronics Engineer who enjoys designing the architecture behind web applications, solving complex logical problems, and creating comprehensive solutions that bridge software with the physical world. My key experience includes biometric security systems, specialized data management, and digital modeling.",
-      "about.edu_title": "Education and Certifications",
+      "about.edu_degree1": "Mechatronics Engineering",
+      "about.edu_degree2": "Java Full Stack Bootcamp",
+      "about.edu_degree3": "Introduction to Java",
+      "about.edu_lang_title": "English",
+      "about.skills_title": "Technical Skills",
+      "about.skills_soft_title": "Soft Skills",
       "about.edu_item1": "Instituto Tecnológico de Tláhuac (Degree in progress, 2021 - 2026)",
       "about.edu_item2": "Generation México (April 2026 - July 2026)",
       "about.edu_item3": "Accenture (2026)",
@@ -324,6 +334,10 @@
     if (btnEs && btnEn) {
       btnEs.classList.toggle("active", lang === "es");
       btnEn.classList.toggle("active", lang === "en");
+    }
+
+    if (typeof initGitHubActivity === "function") {
+      initGitHubActivity();
     }
   }
 
